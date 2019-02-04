@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: kube-restrict-ip
+  namespace: kube-system
+spec:
+  template:
+    metadata:
+      labels:
+        k8s-app: kube-restrict-ip
+    spec:
+      hostNetwork: true
+      containers:
+      - name: kube-restrict-ip
+        image: kube-restrict-ip:v0.1.0
+        args:
+          - "-v4"
+          - "--config-file=/etc/kube-restrict-ip/config.yaml"
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN"]
+        volumeMounts:
+          - name: config
+            mountPath: /etc/kube-restrict-ip
+      volumes:
+        - name: config
+          configMap:
+            # Note this ConfigMap must be created in the same namespace as the daemon pods - this spec uses kube-system
+            name: kube-restrict-ip
+            items:
+              - key: config.yaml
+                path: config.yaml

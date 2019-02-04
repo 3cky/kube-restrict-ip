@@ -1,0 +1,7 @@
+# Folders
+_test/
+bin/
+
+# IDE files
+*.iml
+*.idea
