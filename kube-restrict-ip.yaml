@@ -12,9 +12,8 @@ spec:
       hostNetwork: true
       containers:
       - name: kube-restrict-ip
-        image: kube-restrict-ip:v0.1.0
+        image: 3cky/kube-restrict-ip:v0.1.0
         args:
-          - "-v4"
           - "--config-file=/etc/kube-restrict-ip/config.yaml"
         securityContext:
           capabilities:

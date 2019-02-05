@@ -3,6 +3,8 @@
 PKG_NAME := $(shell basename `pwd`)
 PKG := github.com/3cky/$(PKG_NAME)
 
+DOCKER_IMAGE := 3cky/$(PKG_NAME)
+
 VERSION_VAR := $(PKG)/pkg/build.Version
 TIMESTAMP_VAR := $(PKG)/pkg/build.Timestamp
 
@@ -22,7 +24,7 @@ build-static:
 	env CGO_ENABLED=0 GOOS=linux go build -a -installsuffix "static" $(GOBUILD_LDFLAGS) -o ./bin/$(PKG_NAME)
 
 docker:
-	@docker build --pull -t "$(PKG_NAME):v$(VERSION)" .
+	@docker build --pull -t "$(DOCKER_IMAGE):v$(VERSION)" .
 
 clean:
 	rm -dRf ./bin
