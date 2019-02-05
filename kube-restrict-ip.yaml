@@ -4,6 +4,8 @@ metadata:
   name: kube-restrict-ip
   namespace: kube-system
 spec:
+  updateStrategy:
+    type: RollingUpdate
   template:
     metadata:
       labels:
