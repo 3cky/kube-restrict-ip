@@ -7,4 +7,4 @@ allowedNetworks:
   - 192.168.1.0/24
   - 192.168.2.0/24
 
-checkInterval: 15s
+checkInterval: 60s

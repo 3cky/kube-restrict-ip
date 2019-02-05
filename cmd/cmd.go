@@ -67,7 +67,7 @@ func initCmd(cmd *cobra.Command) {
 	f.Bool(FlagRunOnce, false, "run once and exit")
 	f.StringP(FlagConfigFileName, "c", "",
 		fmt.Sprintf("config file name to watch (implied '%s' if omitted)", FlagRunOnce))
-	f.DurationP(FlagConfigCheckInterval, "t", 10*time.Second, "config file update check interval")
+	f.DurationP(FlagConfigCheckInterval, "t", 60*time.Second, "config file update check interval")
 	f.String(FlagIpChainName, "KUBE-RESTRICT-IP", "iptables chain name")
 	f.StringSlice(FlagRestrictedPorts, nil, "restricted ports")
 	f.StringSlice(FlagAllowedNetworks, nil, "allowed networks")
