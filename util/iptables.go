@@ -26,8 +26,8 @@ import (
 const (
 	restrictedPortsInputRuleId = "kube-restrict-ip"
 
-	restrictedPortsInputRuleRegexTemplate = "^-A INPUT -p tcp -m multiport --dports ([0-9,]+) -m comment --comment " +
-		restrictedPortsInputRuleId + " -j %s$"
+	restrictedPortsInputRuleRegexTemplate = "^-A INPUT -p tcp -m multiport --dports ([0-9,]+) -m comment --comment \"?" +
+		restrictedPortsInputRuleId + "\"? -j %s$"
 )
 
 func CreateEmptyChainRule(chainName string) string {
@@ -35,14 +35,14 @@ func CreateEmptyChainRule(chainName string) string {
 }
 
 func CreateRestrictedPortsAddRule(chain string, ports []string) string {
-	return JoinWords("-I", "INPUT", "1", createRestrictedPortsMatchRule(chain, ports))
+	return JoinWords("-I", "INPUT", "1", CreateRestrictedPortsMatchRule(chain, ports))
 }
 
 func CreateRestrictedPortsDeleteRule(chain string, ports []string) string {
-	return JoinWords("-D", "INPUT", createRestrictedPortsMatchRule(chain, ports))
+	return JoinWords("-D", "INPUT", CreateRestrictedPortsMatchRule(chain, ports))
 }
 
-func createRestrictedPortsMatchRule(chain string, ports []string) string {
+func CreateRestrictedPortsMatchRule(chain string, ports []string) string {
 	p := strings.Join(ports, ",")
 	return JoinWords("-p", "tcp", "-m", "multiport", "--dports", p,
 		"-m", "comment", "--comment", "\""+restrictedPortsInputRuleId+"\"", "-j", chain)
