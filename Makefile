@@ -13,8 +13,7 @@ GOBUILD_LDFLAGS := -ldflags "-s -w -X $(VERSION_VAR)=$(VERSION) -X $(TIMESTAMP_V
 
 default: all
 
-all:
-	build
+all: build
 
 build:
 	go build -x $(GOBUILD_LDFLAGS) -v -o ./bin/$(PKG_NAME)
