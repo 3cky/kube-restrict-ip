@@ -24,7 +24,7 @@ build-static:
 	env CGO_ENABLED=0 GOOS=linux go build -a -installsuffix "static" $(GOBUILD_LDFLAGS) -o ./bin/$(PKG_NAME)
 
 docker:
-	@docker build --pull -t "$(DOCKER_IMAGE):v$(VERSION)" .
+	@docker build --pull -t "$(DOCKER_IMAGE):$(VERSION)" .
 
 clean:
 	rm -dRf ./bin
